@@ -1,0 +1,38 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> webpack4新特性与坑点 · hammer's blog</title><meta name="description" content="webpack4新特性与坑点 - hammer"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="hammer's blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">webpack4新特性与坑点</h1><div class="post-info">Feb 9, 2018</div><div class="post-content"><p>##快速搭建方案</p>
+<p> webpack4与前几个版本的一个重要区别是，现在它有快速搭建模式，这个模式简化了在小型项目或demo中让人诟病的复杂配置模式，这意味着现在你不需要那个webpack.config.js也能快速的来使用webpack了。只要以下几个步骤：</p>
+<ol>
+<li><p>新建一个webpack4-quickstart目录并进入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir webpack4-quickstart &amp;&amp; cd webpack4-quickstart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化package.json</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn init -y</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>为本地项目安装webpack与webpack-cli</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add webpack webpack-cli -D</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建一个src文件，里面新建一个index.js（作为webpack4快速模式默认的入口）</p>
+</li>
+<li><p>在package.json中添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;webpack --mode development&quot;,</span><br><span class="line">    &quot;build&quot;: &quot;webpack --mode production&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在cmd中运行 npm run dev或者npm run build</p>
+</li>
+</ol>
+<p>这样一个无需配置文件的webpack项目便搭建成功了，它默认入口是\src\index.js,默认的输出文件是\dist\main.js</p>
+<h2 id="生产环境模式与开发环境模式"><a href="#生产环境模式与开发环境模式" class="headerlink" title="生产环境模式与开发环境模式"></a>生产环境模式与开发环境模式</h2><p>在快速搭建模式中如果缺少了第五步，那么cmd中就会提示一个警告信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WARNING in configuration</span><br><span class="line">The &apos;mode&apos; option has not been set. Set &apos;mode&apos; option to &apos;development&apos; or</span><br><span class="line">&apos;production&apos; to enable defaults for this environment</span><br></pre></td></tr></table></figure></p>
+<p>在webpack4中，新增了mode模式的写法，指明打包是开发环境还是生产环境，二者的区别是开发环境中的打包出来的代码不经过UglifyJs的压缩，不产生source map,而生产环境模式打包出来的代码经过过压缩，作用域提升，tree-shaking等优化。</p>
+<p>##其余新特性</p>
+<ul>
+<li>大量针对打包速度与性能的优化，包括更健壮的默认配置，官方公布报告显示，打包性能有60%以上的提升。</li>
+<li>对多页面应用中常用的CommonsChunkPlugin被替换为optimize.splitChunks和optimization.runtimeChunk，让开发者更简单实现公共代码提取与代码分割。</li>
+<li>支持WebAssembly与CommonJS,AMD,ESM等模块系统。</li>
+</ul>
+<p>##兼容问题</p>
+<p>目前许多第三方的plugin与loader未对webpack4做好兼容措施，包括日常中经常使用到的HtmlWebpackPlugin，为此webpack团队专门为它做了个兼容方案。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">yarn add html-webpack-plugin@webpack-contrib/html-webpack-plugin</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="https://github.com/webpack/webpack/releases/tag/v4.0.0" target="_blank" rel="noopener">github-webpack</a></li>
+<li><a href="http://mp.weixin.qq.com/s/jNKuUyqxoI25r-J1RpT7wA" target="_blank" rel="noopener">前端之巅-wbaock4正式发布，实现零配置启动</a></li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/02/19/js数组去重方法与常用API/" class="prev">PREV</a><a href="/2018/01/06/js中的匿名函数/" class="next">NEXT</a></div><div class="copyright"><p>© 2017 - 2018 <a href="http://yoursite.com">hammer</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

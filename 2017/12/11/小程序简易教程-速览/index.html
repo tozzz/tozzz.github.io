@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 小程序简易教程-速览 · hammer's blog</title><meta name="description" content="小程序简易教程-速览 - hammer"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="hammer's blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">小程序简易教程-速览</h1><div class="post-info">Dec 11, 2017</div><div class="post-content"><p>##框架<br>在官方demo中，我们用的app()，page()或者直接调用的wx.setStorageSync()等API这些东西都是小程序框架做的事，它的核心是一个数据绑定系统，除了这个数据绑定的主要功能外，还提供页面管理（路由处理，场景注册等），基础组件（scroll-view,navigator,iamge等），丰富的API（wx.setSrorageSync,wx.getUserInfo）等功能。</p>
+<p>##文件结构</p>
+<p>每个小程序的页面都是由四个文件构成<br>文档结构|样式|脚本|配置<br>-|-|-|-<br>.wxml|.wxss|.js|.json</p>
+<ul>
+<li>.wxml文件，微信标记语言？哈哈，反正主要作用就是表示文档结构的相当于html文件。</li>
+<li>.wxss文件，相当于css文件，用来处理样式表现的，值得注意的一点是引入了rpx这个满足自适应的单位。</li>
+<li>.json文件，是小程序的配置文件，包括对页面的声明注册，一些窗体样式的设置，网络延时设定及tabBar的设置。</li>
+<li>.js文件，主要用来监听并处理小程序的生命周期及声明全局变量，还可以调用框架提供的API如同步存储及同步读取本地数据。除根目录下的app.js文件外，各个page下的js文件都有个page()方法用于注册一个页面，该方法参数是一个对象，通常有data、onShow、onHide等key值。<br>而根目录下的app.json，app.wxss，app.js会被子页面对应的文件的覆盖。</li>
+</ul>
+<p>##逻辑层</p>
+<p>小程序开发的逻辑层是由javascript编写的，但宿主环境并不是浏览器，所以一些BOM的接口或者对象是没有的，比如window,document等。前文说到小程序框架中的主要功能是提供数据传输与事件系统，这个主要就是针对视图层（view）与逻辑层二者。逻辑层映射到文件结构中即是.js的文件，视图层则映射为.wxml的文件。上线时所写的代码最终会被全部打包成一个javascript的文件，估计也使用了webpack般的打包工具。下面介绍逻辑层中的几个重要概念。</p>
+<ul>
+<li>注册程序</li>
+<li>场景值</li>
+<li>注册页面</li>
+<li>路由</li>
+<li>模块化</li>
+<li>API</li>
+<li>注册程序</li>
+</ul>
+<p>App()方法用来注册小程序，只能注册一次且必须在app.js中。参数是一个对象，该对象有四个控制生命周期函数，分别是onLaunch,onShow,onHide,onError。onLaunch是小程序初始化完成时才触发的，全局只触发一次，onShow与onHide方法分别在前后台切换时触发。其中，当用户点击左上角的关闭按钮或者按下home键，小程序并没有销毁而是进入了后台。只有小程序进入后台一定时间或者系统占用资源过多时，小程序才会被销毁。在onLaunch、onShow方法中可获得如下参数，path、qurey、scene,referrerInfo等数据。</p>
+<p>##场景值</p>
+<p>场景值表示进入小程序色方式，比如1001代表从微信发现栏的主入口进入，1005表示顶部搜索框结果进入，1011表示通过扫描二维码的方式进入的。这个值可以在onLaunch或者onShow中通过options获得。<br>注册页面<br>注册一个页面由Page()函数实现，接收一个Object参数，可指定初始数据，生命周期函数与事件处理函数等。一般写在每个页面的page.js中，默认的初始页面可写在page根目录下的index.js中。Object参数说明：<br>属性|类型|描述<br>-|-|-<br>data|Object|页面的初始数据<br>onLoad|Function|生命周期函数-监听页面加载<br>onReady|Function|生命周期函数-监听页面初次渲染完成<br>onShow|Function|生命周期函数-监听页面显示<br>onHide|Function|生命周期函数-监听页面隐藏<br>onUnload|Function|生命周期函数-监听页面卸载<br>onPullDownRefresh|Function|页面相关事件-监听用户下拉动作<br>onReachBottom|Function|页面相关事件-监听上拉触底动作<br>onPageScroll|Function|页面相关事件-监听页面滚动事件<br>onShareAppMessage|Function|页面相关事件-用户点击右上角转发<br>其中onPullDownRefresh方法需要再.json文件中的对window配置enablePullDownRefresh：true才可使用。<br>onReachBottom可在window中配置具体的触发距离，默认值是50</p>
+<p>##如何初始化数据<br>在view层，用双大括号表征变量，在逻辑层中初始化数据的data对象中再给相应变量赋值。</p>
+<p>##生命周期函数</p>
+<ul>
+<li>onLoad：页面加载，一次生命周期函数中只会调用一次，onHide或者onShow并不会对它有影响，可以在onLoad方法中获取打开当前页面所调用的query参数或者获得用户个人信息资料（getUserInfo）</li>
+<li>onShow：页面显示，小程序进入前台时触发，可触发多次。</li>
+<li>onReady:页面准备就绪，只触发一次，代表页面已准备妥当，可以开始与视图层进行交互，若对页面设置wx.setNavigationBarTitle需在onReady之后，也很好理解，因为这个改版导航栏标题的动作就是属于逻辑层与视图层的交互。</li>
+<li>onHide:页面隐藏，小程序进入后台是触发，具体可以为navigateTo与底部tab切换时。</li>
+<li>onUnload:页面卸载，当redirectTo与navigateBack的时候调用。</li>
+</ul>
+<p>##Page对象<br>page.route:可以获得当前页面的路由。<br>page.setData()：将数据从逻辑层异步发送到视图层，而且同步的改变this.data的值。如果不是有setData()而是直接改变this.data则视图层的数据状态不会改变，而且会造成数据不一致，另外要注意的一点是，setData方法一次只能设置1024KB大小的数据。<br>页面路由<br>小程序中的路由管理有一个很重要的概念就是页面栈，以下是几种路由操作时页面栈产生的对应变化。<br>路由操作|页面栈表现|触发时机<br>-|-|-<br>初始化|新页面入栈|小程序打开的第一个页面<br>打开新页面|新页面入栈|wx.navigateTo或使用组件<br>tab切换|全部页面出栈，只留下新tab的页面|wx.switchTab或使用组件<br>重新启动|全部页面出栈，只留下新的页面|wx.relaunch或使用组件<br>页面重定向|当前页面出栈，重定向的页面入栈|wx.redirectTo或使用组件<br>页面返回|页面不断出栈，直到目标页返回页，新页面入栈|wx.navigateBack或组件</p>
+<p>getCurrentPages()–获取当前页面栈的实例，返回一个数组，第一个数组元素为首页，最后一个是当前页面。<br>navigateTo与redirectTo只能打开非tabBar的页面，tabBar页面的路由操作由switchBar负责。<br>relaunch可以打开任何页面，包括tabBar的页面。<br>调用页面路由带的参数，可以在目标页面的onLoad函数中获取。</p>
+<p>##模块化</p>
+<p>与传统的前端文件作用域不同，在小程序中，全局变量不会跨文件污染。每个.js文件中的变量与其余js文件中的变量相互独立。而在跨文件的全局变量实现上如何实现呢，小程序框架通过在在app实例中的global字段作为全局存储空间，对会被经常引用的js公用代码则可以通过require的方式引入，被require的文件通过module.exports暴露出来。<br>API<br>API的话有一些特征，比如wx.on开头的一般用于监听某个事件发生的，参数多是一个callback函数，而其余的API参数多是一个Object对象，Object中可指定success，fail,compltelai来接收接口调用结果。剩余各个API具体功能的就不细说了，API*小程序过一遍就是，总结下来就是功能还是特别强大的，诸如获取用户信息，多媒体支持，地理位置，设备相关等接口都有。</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/12/23/从浏览器地址栏输入一串url到页面呈现这个过程中发生了什么？/" class="prev">PREV</a><a href="/2017/10/17/当前常用html结构emmet自定义/" class="next">NEXT</a></div><div class="copyright"><p>© 2017 - 2018 <a href="http://yoursite.com">hammer</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
