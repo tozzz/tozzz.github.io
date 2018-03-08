@@ -1,6 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> flex基本用法 · hammer's blog</title><meta name="description" content="flex基本用法 - hammer"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="hammer's blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">flex基本用法</h1><div class="post-info">Jul 6, 2017</div><div class="post-content"><p>仿芒果TV小程序中出现的flex布局的<strong>align-items</strong>属性,正好复习下<strong>flex布局</strong><br><a id="more"></a></p>
-<p>##如何使用flex</p>
-<p>在父元素添加flex属性，写法如下：  </p>
+<h2 id="如何使用flex"><a href="#如何使用flex" class="headerlink" title="如何使用flex"></a>如何使用flex</h2><p>在父元素添加flex属性，写法如下：  </p>
 <blockquote>
 <p>display:-webkit-box;<br>display:-webkit-flex;<br>display:flex;</p>
 </blockquote>
@@ -8,16 +7,14 @@
 <blockquote>
 <p>-webkit-box-flex:1;<br>-webkit-flex:1;<br>-flex:1;</p>
 </blockquote>
-<p>##子元素在垂直方向的排列布局</p>
-<p>兼容性写法：</p>
+<h2 id="子元素在垂直方向的排列布局"><a href="#子元素在垂直方向的排列布局" class="headerlink" title="子元素在垂直方向的排列布局"></a>子元素在垂直方向的排列布局</h2><p>兼容性写法：</p>
 <blockquote>
 <p>-webkit-box-align：<br> -webkit-align-items：<br> align-items：</p>
 </blockquote>
 <p>属性值:<br>顶部|居中|基线|底部|拉伸<br>-|-|-|-|-<br>flex-start|center|baseline|flex-end|stretch<br><em>2009版本的box写法中，flex-start,flex-end改为start,end.</em></p>
-<p>##子元素在水平方向的排列布局</p>
-<p>兼容性写法： </p>
+<h2 id="子元素在水平方向的排列布局"><a href="#子元素在水平方向的排列布局" class="headerlink" title="子元素在水平方向的排列布局"></a>子元素在水平方向的排列布局</h2><p>兼容性写法： </p>
 <blockquote>
 <p>-webkit-box-pack：<br>-webkit-justify-content：<br>justify-content:</p>
 </blockquote>
 <p>属性值：<br>顶部|居中|底部|靠边居中|完全居中<br>-|-|-|-|-<br>flex-start|center|flex-end|space-between|space-around<br><em>2009版本的box写法中，flex-start,flex-end改为start,end且space-between与space-around均改为justify</em></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2017/08/11/什么是BFC？/" class="prev">上一篇</a><a href="/2017/06/12/nodejs概览/" class="next">下一篇</a></div><div class="copyright"><p>© 2017 - 2018 <a href="http://yoursite.com">hammer</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/08/11/什么是BFC？/" class="prev">PREV</a><a href="/2017/06/12/nodejs概览/" class="next">NEXT</a></div><div class="copyright"><p>© 2017 - 2018 <a href="http://yoursite.com">hammer</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
