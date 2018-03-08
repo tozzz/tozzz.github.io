@@ -1,0 +1,30 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 什么是BFC？ · hammer's blog</title><meta name="description" content="什么是BFC？ - hammer"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="hammer's blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">什么是BFC？</h1><div class="post-info">Aug 11, 2017</div><div class="post-content"><p>##什么是BFC?</p>
+<p>BFC：详细叙述BFC这个概念时，先要了解box与formatting context,不同的box会形成不同的Formatting context,box类型分为以下三种，</p>
+<ul>
+<li>block-level elements，比如display:block/list-item/table</li>
+<li>inline-level elements，比如display:inline-block/inline/inline-table</li>
+<li>run-in elements，css3中新出的规范，大意是根据上下文来决定自身的。比如display.display:flex<br>而在css2.1中Formatting context又分为两种（css3中又加入了FFC,GFC），一种是block-formatting-context(BFC)<a id="more"></a>
+</li>
+</ul>
+<p>另一种是inline-formatting-context(IFC)，所谓的formatting-context的作用是指它代表了一种渲染规则，它决定了其子元素如何定位，以及其与其他元素的关系和相互作用。具体而言，比如BFC，它的规则是这样的：</p>
+<ul>
+<li>BFC中的box会从containing block顶部开始在垂直方向上一个个的放置。</li>
+<li>box垂直方向上的距离由margin决定，属于同一个BFC的相邻box在垂直方向上的margin会发生重叠（margin-collapse，具体表现为比如上一个的margin-bottom会与相邻的下一个box的margin-top重叠（那二者间的margin值会取大的那个值）,还有种情况是1个block-box内嵌套着一个子block-box(inline-box是没有margin-top这个css属性的，此时要满足它们之间没有存在padding,border即content-box是重叠的时候)的情况时也会出现margin-collapse,比如给子block-box设置margin-top则父block-box也会共用这margin-top.</li>
+<li>在bfc布局中，每个盒子外侧紧挨着containing block的左边缘，就算它是个浮动元素。</li>
+<li>具有BFC特性的父元素在计算高度时会将浮动的子元素包括在内。</li>
+<li>BFC是页面元素里独立存在的作用块，它不影响外面的布局，外面的元素也不会影响到BFC里面的布局。</li>
+</ul>
+<p>##哪些情况下会触发BFC？</p>
+<ul>
+<li>根元素以及包含它的元素，比如body，html,viewport。</li>
+<li>position:absolute/fixed的元素，还有float不为none的值。</li>
+<li>overflow值不为visible。</li>
+<li>display:为inline-blcok,table-caption,table-cell.flex</li>
+</ul>
+<p>##那了解BFC以后有什么意义呢？</p>
+<ul>
+<li>可以理解浏览器渲染过程的一些规则。</li>
+<li>可以清除浮动带来的布局影响。</li>
+<li>可以合理避免margin-collapse</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/10/17/当前常用html结构emmet自定义/" class="prev">上一篇</a><a href="/2017/07/06/flex基本用法/" class="next">下一篇</a></div><div class="copyright"><p>© 2017 - 2018 <a href="http://yoursite.com">hammer</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
